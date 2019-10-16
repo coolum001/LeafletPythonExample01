@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    {% if title %}
+    <title>{{ title }} </title>
+    {% else %}
+    <title>Leaflet Example</title>
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin="">
+    </script>
+
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'>
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Web Mapping:</h1>
+            <ul class="menu">
+                <li><a href="{{ url_for('index') }}">Leaflet</a></li>
+                <li><a href="{{ url_for('mapboxmap') }}">Mapbox</a></li>
+            </ul>
+
+        </div>
+    </header>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<div id="footer">
+    <span class="tiny">
+        Copyright © Don Cameron, 2019. www.net-analysis.com
+    </span>
+</div>
+
+</html>

@@ -1,0 +1,50 @@
+{% extends "basemapbox.html" %}
+
+{% block content %}
+<h1>Mapbox Example</h1>
+
+<div>
+    <p>Welcome {{ salutation }} to the Mapbox Example.  {{ lon_str }}, {{ lat_str }} </p>
+
+</div>
+<style type='text/css'>
+    #info {
+    display: block;
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+    }
+</style>
+
+
+<div id="map" style="width: 600px; height: 400px"></div>
+<pre id='info'></pre>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZG9ucmNhbWVyb24iLCJhIjoiY2sxZno0MGhkMGlwaDNncGNhN2M4enpycyJ9.Mi32SYzysnqe5qfP8dXtjA';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [{{ lon_str }}, {{ lat_str }}], // starting position [lng, lat]
+zoom: {{ zoom_str }} // starting zoom
+});
+
+map.on('mousemove', function (e) {
+    document.getElementById('info').innerHTML =
+        // e.point is the x, y coordinates of the mousemove event relative
+        // to the top-left corner of the map
+        JSON.stringify(e.point) + '<br />' +
+        // e.lngLat is the longitude, latitude geographical position of the event
+        JSON.stringify(e.lngLat.wrap());
+});
+
+
+</script>
+
+{% endblock %}

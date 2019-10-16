@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    {% if title %}
+    <title>{{ title }} </title>
+    {% else %}
+    <title>Mapbox Example</title>
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Web Mapping:</h1>
+            <ul class="menu">
+                <li><a href="{{ url_for('index') }}">Leaflet</a></li>
+                <li><a href="{{ url_for('mapboxmap') }}">Mapbox</a></li>
+            </ul>
+
+        </div>
+    </header>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<div id="footer">
+    <span class="tiny">
+        Copyright © Don Cameron, 2019. www.net-analysis.com
+    </span>
+</div>
+
+</html>
